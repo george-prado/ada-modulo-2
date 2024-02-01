@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 4</title>
+</head>
+<body>
+    <script>
+        const age = parseInt(prompt('Qual a sua idade?'))
+        const minBuy = parseFloat(prompt('Qual o valor da sua compra?').replace(',','.'))
+        let isNewClient = prompt('É a sua primeira compra? (Sim/Não)').toLowerCase();
+
+        isNewClient == 'sim' ? isNewClient = true : isNewClient = false; 
+
+        alert(age >= 60 && minBuy >= 100 && isNewClient == false);
+    </script>
+</body>
+</html>
