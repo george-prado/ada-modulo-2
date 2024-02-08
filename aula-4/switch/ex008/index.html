@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 7</title>
+</head>
+<body>
+    <script>
+        const letra = prompt("Digite uma letra qualquer").toLowerCase();
+        const vogais = ['a','e','i','o','u']
+        const ehVogal = vogais.includes(letra) ? true : false
+
+        switch (true) {
+            case (ehVogal): alert('É vogal'); break;
+            case (!ehVogal): alert('É consoante'); break;
+        }
+
+        //também dá pra fazer manualmente case 'a': alert('É vogal') ... default: alert('É consoante')
+      </script>
+</body>
+</html>

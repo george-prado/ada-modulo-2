@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 5</title>
+</head>
+<body>
+    <script>
+        
+        const ano = Number(prompt('Digite um ano'));
+        const divisivelPor4 = ano % 4 === 0 ? true : false;
+        const divisivelPor100 = ano % 100 === 0 ? true : false;
+        const divisivelPor400 = ano % 400 === 0 ? true : false;
+
+        if (divisivelPor4) {
+            if (divisivelPor100 && !divisivelPor400) {
+                alert(`O ano ${ano} não é bissexto`)
+            } else {
+                alert(`O ano ${ano} é bissexto`)
+            }
+        } 
+        else {
+            alert(`O ano ${ano} não é bissexto`)
+        }
+        
+
+    </script>
+</body>
+</html>

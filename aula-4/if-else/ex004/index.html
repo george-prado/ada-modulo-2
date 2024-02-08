@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício 4</title>
+  </head>
+  <body>
+    <script>
+      const A = Number(prompt("Digite um lado do triângulo"));
+      const B = Number(prompt("Digite outro lado do triângulo"));
+      const C = Number(prompt("Digite o último lado do triângulo"));
+      let tipo = "";
+
+      //tipos
+      const equilatero = (A === B && B === C) ? true : false;
+      const isosceles = (A === B && B !== C) || (B === C && C !== A) ? true : false;
+      if (equilatero) {
+        tipo = "Equilátero";
+      } else if (isosceles) {
+        tipo = "Isósceles";
+      } else {
+        tipo = "Escaleno";
+      }
+
+      alert(`Tipo do triângulo: ${tipo}`);
+    </script>
+  </body>
+</html>

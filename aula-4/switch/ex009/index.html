@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 9</title>
+</head>
+<body>
+    <script>
+        const mes = prompt("Digite um mês qualquer").toLowerCase();
+        
+        const estacoes = {
+            'inverno': ['dezembro', 'janeiro', 'fevereiro'],
+            'primavera': ['março', 'abril', 'maio'],
+            'verao': ['junho', 'julho', 'agosto'], 
+            'outono': ['setembro', 'outubro', 'novembro'], 
+        }
+
+        let estacaoEncontrada = null;
+
+        for (const meses in estacoes) {
+            if (estacoes[meses].includes(mes)) {
+                estacaoEncontrada = meses;
+                break;
+            }
+        }
+
+        switch(estacaoEncontrada){
+            case 'inverno': alert(`O mês ${mes} pertence à estação Inverno`); break;
+            case 'primavera': alert(`O mês ${mes} pertence à estação Primavera`); break;
+            case 'verao': alert(`O mês ${mes} pertence à estação Verão`);  break;
+            case 'outono': alert(`O mês ${mes} pertence à estação Outono`); break;
+            default: alert('Insira um mês válido'); break;
+        }
+      </script>
+</body>
+</html>
