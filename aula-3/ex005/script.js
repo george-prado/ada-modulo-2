@@ -4,4 +4,4 @@ const pessoa = {
   cidade: 'Curitiba'
 };
 
-console.log(pessoa.cidade == 'São Paulo')
+console.log(pessoa.cidade === 'São Paulo')

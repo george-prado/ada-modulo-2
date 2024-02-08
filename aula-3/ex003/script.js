@@ -10,6 +10,7 @@ adicionarSinonimos("feliz", "alegre", "contente", "satisfeito");
 adicionarSinonimos("triste", "melancólico", "abatido", "deprimido");
 adicionarSinonimos("bom", "ótimo", "excelente", "maravilhoso");
 
+//saídas
 console.log(dicionarioDeSinonimos.feliz);
 console.log(dicionarioDeSinonimos.triste);
 console.log(dicionarioDeSinonimos.bom);

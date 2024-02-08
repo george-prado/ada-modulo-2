@@ -3,7 +3,7 @@ const listaDeCompras = new Map()
 listaDeCompras.set("Maçã", 5)
 listaDeCompras.set("Banana", 3)
 listaDeCompras.set("Leite", 4)
-listaDeCompras.set("Pão", 10)
+listaDeCompras.set("Pão", 9)
 
 
 console.log(`Contém 'leite' no map: ${listaDeCompras.has("Leite")}`)

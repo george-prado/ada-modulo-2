@@ -6,4 +6,5 @@ const aluno = {
 
 const media = (aluno.nota1 + aluno.nota2) / 2
 
+//saída
 console.log(`O aluno ${aluno.nome} foi aprovado? R: ${media >= 7}`)
