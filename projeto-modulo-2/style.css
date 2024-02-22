@@ -15,5 +15,5 @@ button {
     background: #fff;
     width: 200px;
     height: 100px;
-    border: none
+    border: solid 3px black;
 }
