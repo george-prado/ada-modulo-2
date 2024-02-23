@@ -1,14 +1,14 @@
 main {
     width: 800px;
-    height: 800px;
-    margin: 15rem auto;
+    height: auto;
+    margin: 5rem auto 0 auto;
 }
 
 #row-one, #row-two, #row-three {
     display: flex;
     align-content: center;
     justify-content: space-between;
-    margin: 40px auto;
+    margin: 40px auto 0 auto;
 }
 
 button {
