@@ -6,46 +6,60 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Jogo da Velha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
     <script src="script.js"></script>
 </head>
-<body class="bg-zinc-600"">
-    <main class=""">
-        <div class=" id="selectMode">
-            <h1 class="">Selecione o modo de jogo</h1>
-            <button value="1">Jogador vs. Máquina</button>
-            <button value="2">Jogador vs. Jogador</button> 
+<body class="bg-slate-200">
+    <main class="mt-20">
+        <div class="h-full" id="selectMode">
+            <h1 class="arcade tracking-wider text-5xl text-zinc-700 hover:text-zinc-400 text-center mb-32">Selecione o modo de jogo</h1>
+            <div class="flex h-full justify-evenly mx-48">
+                <button class="arcade tracking-wider h-20 w-content ml-16 text-7xl text-zinc-600 hover:text-orange-600 active:text-orange-400 hover:scale-105" value="1">Jogador <br>vs <br>Máquina</button>
+                <p class="arcade text-8xl pt-12 text-zinc-500">/</p>
+                <button class="arcade tracking-wide h-20 w-content mr-16 text-7xl text-zinc-600 hover:text-blue-600 active:text-blue-400 hover:scale-105" value="2">Jogador <br>vs <br>Jogador</button>
+            </div>
         </div>
         
         <div class="hidden" id="selectSymbol">
-            <h1>Selecione o símbolo, jogador 1</h1>
-            <button value="cross">X</button> 
-            <button value="circle">O</button>
+            <h1 class="arcade tracking-wider text-5xl text-zinc-700 hover:text-orange-600 text-center mb-32">O <span class="text-blue-600">jogador 1</span> deve selecionar o símbolo</h1>
+            <div class="flex h-full justify-evenly mx-48">
+                <button class="arcade tracking-wider h-20 w-content ml-16 text-9xl text-zinc-600 hover:text-orange-600 active:text-orange-400 hover:scale-105" value="cross">X</button>
+                <p class="arcade text-7xl pt-8 text-zinc-500">ou</p>
+                <button class="arcade tracking-wide h-20 w-content mr-16 text-9xl text-zinc-600 hover:text-blue-600 active:text-blue-400 hover:scale-105" value="circle">O</button>
+            </div>
         </div>
 
         <div class="hidden" id="pregame">
-            <button onclick="ShowDraw(this)" id="draw-button">Sortear quem começará</button>
-            <h1 id="draw-text"></h1>
-            <button class="hidden" id="start-button" onclick="StartGame()">Preparado?</button>
+            <div class="flex h-full justify-center items-center mx-auto mt-48">
+                <button class="arcade tracking-wider text-6xl text-zinc-700 hover:text-orange-600 hover:scale-105 text-center mt-24" onclick="ShowDraw(this)" id="draw-button">Clique para sortear quem começará</button>
+                <div class="flex-col content-center justify-center">
+                    <h1 class="flex self-center justify-center text-center arcade tracking-wide h-20 w-content text-5xl text-blue-600" id="draw-text"></h1>
+                    <button class="flex self-center hidden arcade tracking-wide mt-8 h-20 w-content text-center mx-auto text-8xl text-zinc-700 hover:text-red-600 active:text-red-400 hover:scale-105" id="start-button" onclick="StartGame()">Clique para começar</button>
+                </div>
+            </div>
         </div>
 
-        <div class="hidden" id="game">
-
-
+        <div class="hidden w-fit mx-auto text-center" id="game">
             <h1>Joguem</h1>
-            <div id="row-one">
-                <button id="cell-1" onclick="Turn(this, 0, 0)"></button>
-                <button id="cell-2" onclick="Turn(this, 0, 1)"></button>
-                <button id="cell-3" onclick="Turn(this, 0, 2)"></button>
-            </div>
-            <div id="row-two">
-                <button id="cell-4" onclick="Turn(this, 1, 0)"></button>
-                <button id="cell-5" onclick="Turn(this, 1, 1)"></button>
-                <button id="cell-6" onclick="Turn(this, 1, 2)"></button>
-            </div>
-            <div id="row-three">
-                <button id="cell-7" onclick="Turn(this, 2, 0)"></button>
-                <button id="cell-8" onclick="Turn(this, 2, 1)"></button>
-                <button id="cell-9" onclick="Turn(this, 2, 2)"></button>
+
+            <div class="h-fit bg-purple-600 mx-auto" id="table">
+                <div class="flex" id="row-one">
+                    <button class="w-20 h-20 border-b-2" id="cell-1" onclick="Turn(this, 0, 0)"></button>
+                    <button class="w-20 h-20 border-x-2 border-b-2" id="cell-2" onclick="Turn(this, 0, 1)"></button>
+                    <button class="w-20 h-20 border-b-2" id="cell-3" onclick="Turn(this, 0, 2)"></button>
+                </div>
+                <div class="flex" id="row-two">
+                    <button class="w-20 h-20 border-b-2" id="cell-4" onclick="Turn(this, 1, 0)"></button>
+                    <button class="w-20 h-20 border-x-2 border-b-2" id="cell-5" onclick="Turn(this, 1, 1)"></button>
+                    <button class="w-20 h-20 border-b-2" id="cell-6" onclick="Turn(this, 1, 2)"></button>
+                </div>
+                <div class="flex" id="row-three">
+                    <button class="w-20 h-20" id="cell-7" onclick="Turn(this, 2, 0)"></button>
+                    <button class="w-20 h-20 border-x-2" id="cell-8" onclick="Turn(this, 2, 1)"></button>
+                    <button class="w-20 h-20" id="cell-9" onclick="Turn(this, 2, 2)"></button>
+                </div>
             </div>
         </div>
     </main>
