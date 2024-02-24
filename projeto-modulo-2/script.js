@@ -5,38 +5,9 @@ let gameMode = 2
 let draw = Math.floor(Math.random() + 1)
 let lastPlayed = ''
 let winner = ''
+let tie = false;
 let turnCounter = 0
 
-
-//Escolhe P1 vs. Máquina || P1 vs. P2
-function SelectGameMode(){
-    const outputLine1 = '::::::::::::::: ESCOLHA COM QUEM DESEJA JOGAR :::::::::::::::\n'
-    const outputLine2 = ':::::::::: 1. Jogador vs. Máquina ::::::::::'
-    const outputLine3 = ':::::::::: 2. Jogador vs. Jogador ::::::::::'
-    
-    while (gameMode == -1) {
-        let option = Number(prompt(outputLine1 + outputLine2 + outputLine3))
-        if (option != 1 && option != 2){
-            alert('Entre com um modo de jogo válido');
-        } else {
-            gameMode = option;
-            break;
-        }
-    }
-}
-
-//Escolhe se quer X ou O
-function SymbolSelect(){
-    let choose = prompt('Qual símbolo deseja usar? Digite X ou O')
-
-    if(choose == 'X'){
-        player1 = p1;
-        player2 = p2;
-    } else if (choose == 'O'){
-        player1 = p2;
-        player2 = p1;
-    }
-}
 
 //Modo PVP e PVM
 function Turn(e, row, col){
@@ -78,21 +49,19 @@ function Turn(e, row, col){
         }
         Winner()
     }
-    
-}
+};
 
 //Exibe o vencedor da rodada
 function Winner(){
     let result = document.querySelector('#showResult');
 
-    //função utilitária: verifica valores das células
+    // Função utilitária: verifica valores das células
     function checkCell(a, b, c) {
         return a === b && b === c && a !== '';
     }
 
-    if (lastPlayed != '' && turnCounter >= 5) {
-
-        //Condição 1 de ganhar: linhas iguais
+    if (lastPlayed !== '' && turnCounter >= 5) {
+        // Condição 1 de ganhar: linhas iguais
         for (let i = 0; i <= 2; i++) {
             if (checkCell(table[i][0], table[i][1], table[i][2])) {
                 winner = lastPlayed;
@@ -100,22 +69,37 @@ function Winner(){
             }
         }
 
-        //Condição 2 de ganhar: colunas iguais
+        // Condição 2 de ganhar: colunas iguais
         for (let i = 0; i <= 2; i++) {
             if (checkCell(table[0][i], table[1][i], table[2][i])) {
                 winner = lastPlayed;
                 break;
             }
         }
-        
-        //Condição 3 de ganhar: diagonais
+
+        // Condição 3 de ganhar: diagonais
         if (checkCell(table[0][0], table[1][1], table[2][2]) || checkCell(table[0][2], table[1][1], table[2][0])) {
             winner = lastPlayed;
         }
     }
-    
-    result.innerText = `O vencedor é: ${winner}`;
-}
+
+    if (!winner && turnCounter === 9) {
+        tie = true;
+    }
+
+    if (winner) {
+        result.innerText = `O vencedor é: ${winner}`;
+    } else if (tie) {
+        result.innerText = 'Deu velha. Jogue novamente.';
+    } else {
+        result.innerText = '';
+        document.getElementById("result").classList.add("hidden");
+        return;
+    }
+
+    document.getElementById("result").classList.remove("hidden");
+    document.getElementById("game").classList.add("result");
+};
 
 //Reseta o game
 function ResetGame() {
@@ -132,6 +116,7 @@ function ResetGame() {
     player2 = p2;
     turnCounter = 0;
     gameMode = -1;
+    tie = false;
 
     document.querySelector('#showResult').innerText = 'O vencedor é: ';
 
@@ -139,4 +124,66 @@ function ResetGame() {
         let cell = document.querySelector(`#cell-${i}`)
         cell.innerText = ''
     }
+
+    document.getElementById("result").classList.add("hidden")
+    document.getElementById("game").classList.remove("result")
+    
+};
+
+//Escolhe P1 vs. Máquina || P1 vs. P2
+document.addEventListener("DOMContentLoaded", function () {
+    var modeButtons = document.getElementById("selectMode").querySelectorAll("button");
+
+    modeButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            document.getElementById("selectMode").classList.add("hidden");
+            document.getElementById("selectSymbol").classList.remove("hidden");
+
+            gameMode = parseInt(button.value, 10);
+        });
+    });
+});
+
+//Jogador 1 escolhe 'X' ou 'Y'
+document.addEventListener("DOMContentLoaded", function () {
+    var modeButtons = document.getElementById("selectSymbol").querySelectorAll("button");
+
+    modeButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            document.getElementById("selectSymbol").classList.add("hidden");
+            document.getElementById("pregame").classList.remove("hidden");
+
+            if (button.value == 'cross'){
+                player1 = p1;
+                player2 = p2;
+            } else {
+                player1 = p2;
+                player2 = p1;
+            }
+        });
+    });
+});
+
+//Exibir sorteio
+document.addEventListener("DOMContentLoaded", function () {
+    var drawButton = document.getElementById("draw-button");
+    drawButton.addEventListener("click", function () {
+        let drawResult = document.getElementById("draw-text");
+        drawResult.classList.remove("hidden");
+
+        if (draw == 1) {
+            drawResult.innerText = 'O Jogador 1 começará!';
+        } else if (draw == 2) {
+            drawResult.innerText = 'O Jogador 2 começará!';
+        }
+
+        document.getElementById("draw-button").classList.add("hidden");
+        document.getElementById("start-button").classList.remove("hidden");
+    });
+});
+
+//Pós-sorteio
+function StartGame() {
+    document.getElementById("pregame").classList.add("hidden");
+    document.getElementById("game").classList.remove("hidden");
 }

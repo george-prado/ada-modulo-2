@@ -17,3 +17,16 @@ button {
     height: 100px;
     border: solid 3px black;
 }
+
+.hidden {
+    display: none;
+}
+
+.result {
+    scale: .5;
+    transition: 1s ease;
+}
+
+#game {
+    transition: 1s ease;
+}

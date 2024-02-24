@@ -3,29 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Jogo da Velha</title>
     <script src="script.js"></script>
 </head>
-<body>
-    <main>
-        <div id="row-one">
-            <button id="cell-1" onclick="Turn(this, 0, 0)"></button>
-            <button id="cell-2" onclick="Turn(this, 0, 1)"></button>
-            <button id="cell-3" onclick="Turn(this, 0, 2)"></button>
+<body class="bg-zinc-600"">
+    <main class=""">
+        <div class=" id="selectMode">
+            <h1 class="">Selecione o modo de jogo</h1>
+            <button value="1">Jogador vs. Máquina</button>
+            <button value="2">Jogador vs. Jogador</button> 
         </div>
-        <div id="row-two">
-            <button id="cell-4" onclick="Turn(this, 1, 0)"></button>
-            <button id="cell-5" onclick="Turn(this, 1, 1)"></button>
-            <button id="cell-6" onclick="Turn(this, 1, 2)"></button>
+        
+        <div class="hidden" id="selectSymbol">
+            <h1>Selecione o símbolo, jogador 1</h1>
+            <button value="cross">X</button> 
+            <button value="circle">O</button>
         </div>
-        <div id="row-three">
-            <button id="cell-7" onclick="Turn(this, 2, 0)"></button>
-            <button id="cell-8" onclick="Turn(this, 2, 1)"></button>
-            <button id="cell-9" onclick="Turn(this, 2, 2)"></button>
+
+        <div class="hidden" id="pregame">
+            <button onclick="ShowDraw(this)" id="draw-button">Sortear quem começará</button>
+            <h1 id="draw-text"></h1>
+            <button class="hidden" id="start-button" onclick="StartGame()">Preparado?</button>
+        </div>
+
+        <div class="hidden" id="game">
+
+
+            <h1>Joguem</h1>
+            <div id="row-one">
+                <button id="cell-1" onclick="Turn(this, 0, 0)"></button>
+                <button id="cell-2" onclick="Turn(this, 0, 1)"></button>
+                <button id="cell-3" onclick="Turn(this, 0, 2)"></button>
+            </div>
+            <div id="row-two">
+                <button id="cell-4" onclick="Turn(this, 1, 0)"></button>
+                <button id="cell-5" onclick="Turn(this, 1, 1)"></button>
+                <button id="cell-6" onclick="Turn(this, 1, 2)"></button>
+            </div>
+            <div id="row-three">
+                <button id="cell-7" onclick="Turn(this, 2, 0)"></button>
+                <button id="cell-8" onclick="Turn(this, 2, 1)"></button>
+                <button id="cell-9" onclick="Turn(this, 2, 2)"></button>
+            </div>
         </div>
     </main>
 
-    <div><h1 id="showResult">O vencedor é: </h1> <button onclick="ResetGame()">Jogar novamente?</button></div>
+    <div class="hidden" id="result">
+        <h1 id="showResult">O vencedor é: </h1> 
+        <button onclick="ResetGame()">Jogar novamente?</button>
+    </div>
 </body>
 </html>
