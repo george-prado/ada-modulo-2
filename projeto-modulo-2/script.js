@@ -2,57 +2,66 @@ const table = [['', '', ''], ['', '', ''], ['', '', '']]
 const p1 = 'X', p2 = 'O'
 let player1 = p1, player2 = p2
 let gameMode = 2
-let draw = Math.floor(Math.random() + 1)
+let draw = Math.floor(Math.random() * 2 + 1)
 let lastPlayed = ''
 let winner = ''
 let tie = false;
 let turnCounter = 0
 
 
-//Modo PVP e PVM
-function Turn(e, row, col){
-    if (winner == '') {
-        if((draw == 1 && lastPlayed == '') || (lastPlayed == 'Jogador 2' && e.innerText == '')) {
+//Função principal: Partida PVP e PVM
+function Turn(e, row, col) {
+    if (winner === '') {
+        if ((draw === 1 && lastPlayed === '') || (lastPlayed === 'Jogador 2' && e.innerText === '')) {
             e.innerText = player1;
             lastPlayed = 'Jogador 1';
-    
+
             table[row][col] = e.innerText;
             turnCounter++;
-        } else if ((draw == 2 && lastPlayed == '') || (lastPlayed == 'Jogador 1' && e.innerText == '')) {
+        } else if ((draw === 2 && lastPlayed === '') || (lastPlayed === 'Jogador 1' && e.innerText === '')) {
             e.innerText = player2;
             lastPlayed = 'Jogador 2';
-    
+
             table[row][col] = e.innerText;
             turnCounter++;
         }
-    
-        if(gameMode == 1 && lastPlayed == 'Jogador 1'){
-            let random = Math.floor(Math.random() * 9 + 1)
-    
-            let cell = document.querySelector(`#cell-${random}`);
-    
-            while (cell.innerText != '') {
-                random = Math.floor(Math.random() * 9 + 1)
-                cell = document.querySelector(`#cell-${random}`)
-            }
-            
-            if((draw == 2 && lastPlayed == '') || (lastPlayed == 'Jogador 1' && cell.innerText == '')) {
-                cell.innerText = player2;
-                lastPlayed = 'Jogador 2';
-        
-                let targetRow = Math.floor((random - 1) / 3);
-                let targetCol = (random - 1) % 3;
-    
-                table[targetRow][targetCol] = cell.innerText;
-                turnCounter++;
-            }
-        }
-        Winner()
-    }
-};
 
-//Exibe o vencedor da rodada
-function Winner(){
+        if (gameMode === 1 && lastPlayed === 'Jogador 1') {
+            if (!Winner()) {
+                MachineTurn();
+            }
+        } else {
+            Winner();
+        }
+    }
+}
+
+//Função utilitária: Jogadas da máquina
+function MachineTurn() {
+    let random = Math.floor(Math.random() * 9 + 1);
+    let cell = document.querySelector(`#cell-${random}`);
+
+    while (cell.innerText !== '') {
+        random = Math.floor(Math.random() * 9 + 1);
+        cell = document.querySelector(`#cell-${random}`);
+    }
+
+    if ((draw === 2 && lastPlayed === '') || (lastPlayed === 'Jogador 1' && cell.innerText === '')) {
+        cell.innerText = player2;
+        lastPlayed = 'Jogador 2';
+
+        let targetRow = Math.floor((random - 1) / 3);
+        let targetCol = (random - 1) % 3;
+
+        table[targetRow][targetCol] = cell.innerText;
+        turnCounter++;
+
+        Winner();
+    }
+}
+
+//Função utilitária: Exibe o vencedor da rodada
+function Winner() {
     let result = document.querySelector('#showResult');
 
     // Função utilitária: verifica valores das células
@@ -88,20 +97,25 @@ function Winner(){
     }
 
     if (winner) {
-        result.innerText = `O vencedor é: ${winner}`;
+        if (gameMode === 1 && lastPlayed === 'Jogador 2') {
+            result.innerText = 'A máquina venceu!';
+        } else {
+            result.innerText = `O vencedor é: ${winner}`;
+        }
     } else if (tie) {
         result.innerText = 'Deu velha. Jogue novamente.';
     } else {
         result.innerText = '';
         document.getElementById("result").classList.add("hidden");
-        return;
+        return false;
     }
 
     document.getElementById("result").classList.remove("hidden");
     document.getElementById("game").classList.add("result");
-};
+    return true;
+}
 
-//Reseta o game
+//Função utilitária: Jogar novamente
 function ResetGame() {
     table.forEach(row => {
         row[0] = '';
@@ -115,7 +129,6 @@ function ResetGame() {
     player1 = p1;
     player2 = p2;
     turnCounter = 0;
-    gameMode = -1;
     tie = false;
 
     document.querySelector('#showResult').innerText = 'O vencedor é: ';
@@ -130,7 +143,7 @@ function ResetGame() {
     
 };
 
-//Escolhe P1 vs. Máquina || P1 vs. P2
+//Função de menu: Escolhe o modo de jogo
 document.addEventListener("DOMContentLoaded", function () {
     var modeButtons = document.getElementById("selectMode").querySelectorAll("button");
 
@@ -144,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-//Jogador 1 escolhe 'X' ou 'Y'
+//Função de menu: Jogador 1 escolhe o símbolo
 document.addEventListener("DOMContentLoaded", function () {
     var modeButtons = document.getElementById("selectSymbol").querySelectorAll("button");
 
@@ -164,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-//Exibir sorteio
+//Função de menu: Sorteia quem começa
 document.addEventListener("DOMContentLoaded", function () {
     var drawButton = document.getElementById("draw-button");
     drawButton.addEventListener("click", function () {
@@ -182,8 +195,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-//Pós-sorteio
+//Função de menu: Pós-sorteio
 function StartGame() {
     document.getElementById("pregame").classList.add("hidden");
     document.getElementById("game").classList.remove("hidden");
+
+    if (draw == 2) {
+        let random = Math.floor(Math.random() * 9 + 1)
+        let cell = document.querySelector(`#cell-${random}`);
+        
+        while (cell.innerText != '') {
+            random = Math.floor(Math.random() * 9 + 1)
+            cell = document.querySelector(`#cell-${random}`)
+        }
+
+        cell.innerText = player2;
+        lastPlayed = 'Jogador 2';
+
+        let targetRow = Math.floor((random - 1) / 3);
+        let targetCol = (random - 1) % 3;
+
+        table[targetRow][targetCol] = cell.innerText;
+        turnCounter++;
+        Winner();
+    }
 }
